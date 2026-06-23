@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simran Bhatia — Costume Stylist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F0E8E2;
+      --dark: #2A1F1A;
+      --rose: #B08070;
+      --rose-lt: #D4B0A0;
+      --border: #DDD0C6;
+      --tile: #E4D8D0;
+      --cream: #FAF5F1;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--dark); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 22px 48px; background: rgba(240,232,226,0.93); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 300; letter-spacing: 0.08em; color: var(--dark); text-decoration: none; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose-lt); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--dark); }
+
+    /* HERO — Vimeo profile style */
+    .hero {
+      width: 100%;
+      background: var(--dark);
+      position: relative;
+    }
+    .hero-banner {
+      width: 100%;
+      height: 380px;
+      overflow: hidden;
+      position: relative;
+      background: var(--dark);
+    }
+    .hero-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+    }
+    .hero-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(42,31,26,0.1) 0%, rgba(42,31,26,0.6) 100%);
+    }
+    .hero-profile {
+      background: var(--bg);
+      padding: 0 48px 40px;
+      position: relative;
+    }
+    .hero-avatar-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .hero-avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      border: 4px solid var(--bg);
+      overflow: hidden;
+      margin-top: -48px;
+      background: var(--tile);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-avatar-initials {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--rose);
+    }
+    .hero-nav-links {
+      display: flex;
+      gap: 24px;
+      padding-bottom: 4px;
+    }
+    .hero-nav-links a {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--rose);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .hero-nav-links a:hover { color: var(--dark); }
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 300;
+      color: var(--dark);
+      line-height: 1;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+    .hero-name em { font-style: italic; color: var(--rose); }
+    .hero-role {
+      font-size: 13px;
+      color: var(--rose);
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+    .hero-meta {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .hero-meta-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--dark);
+      line-height: 1;
+    }
+    .hero-meta-label {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rose);
+    }
+    .hero-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 24px 0 0;
+    }
+
+    /* MARQUEE */
+    .marquee-wrap { overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 18px 0; background: var(--dark); }
+    .marquee-track { display: flex; gap: 56px; animation: marquee 30s linear infinite; white-space: nowrap; width: max-content; }
+    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .m-name { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 300; font-style: italic; color: var(--rose-lt); }
+    .m-dot { color: var(--rose); opacity: 0.4; }
+
+    /* SECTION COMMON */
+    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; gap: 16px; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 4vw, 48px); font-weight: 300; letter-spacing: -0.01em; }
+    .section-title em { font-style: italic; color: var(--rose); }
+
+    /* FILTER */
+    .filter-row { display: flex; gap: 6px; flex-wrap: wrap; }
+    .filter-btn { background: none; border: 1px solid var(--border); font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.16em; text-transform: uppercase; color: var(--rose); padding: 8px 18px; cursor: pointer; border-radius: 40px; transition: all 0.2s; white-space: nowrap; }
+    .filter-btn.active, .filter-btn:hover { background: var(--dark); border-color: var(--dark); color: var(--bg); }
+
+    /* WORK GRID */
+    .work-section { padding: 64px 48px 80px; }
+    a { color: inherit; text-decoration: none; }
+    .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 28px; }
+    .grid-item { position: relative; aspect-ratio: 16/10; overflow: hidden; background: var(--tile); display: block; text-decoration: none; color: inherit; }
+    .grid-item.wide { grid-column: span 2; aspect-ratio: 32/10; }
+    .grid-item.hidden { display: none; }
+    .grid-item[style*="display: none"] { grid-column: unset; }
+    .grid-item img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; display: block; transition: transform 0.5s ease; }
+    .grid-item:hover img { transform: scale(1.04); }
+    .play-icon { position: absolute; top: 14px; right: 14px; z-index: 4; width: 34px; height: 34px; border-radius: 50%; background: rgba(240,232,226,0.9); display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--dark); padding-left: 2px; opacity: 0; transform: scale(0.8); transition: opacity 0.25s, transform 0.25s; z-index: 3; }
+    .grid-item:hover .play-icon { opacity: 1; transform: scale(1); }
+    .grid-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(42,31,26,0.9) 0%, rgba(42,31,26,0) 52%); display: flex; flex-direction: column; justify-content: flex-end; padding: 22px 18px; opacity: 0; transition: opacity 0.3s; z-index: 2; }
+    .grid-item:hover .grid-overlay { opacity: 1; }
+    .grid-item:hover .g-overlay { opacity: 1; }
+    .g-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(42,31,26,0.9) 0%, rgba(42,31,26,0) 52%); display: flex; flex-direction: column; justify-content: flex-end; padding: 22px 18px; opacity: 0; transition: opacity 0.3s; z-index: 2; }
+    .ov-cat { font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--rose-lt); margin-bottom: 4px; }
+    .ov-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; color: var(--cream); line-height: 1.2; }
+    .overlay-cat { font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--rose-lt); margin-bottom: 4px; }
+    .overlay-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; color: var(--cream); line-height: 1.2; }
+    .tile-fallback { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 20px; text-align: center; background: var(--tile); }
+    .fallback-label { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-style: italic; font-weight: 300; color: var(--rose); line-height: 1.3; }
+    .fallback-cat { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rose-lt); }
+
+    /* CELEBRITY GRID — magazine layout with varied sizes */
+    .celeb-section { padding: 0 48px 80px; }
+    .celeb-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 28px; }
+    .celeb-item { position: relative; aspect-ratio: 3/4; overflow: hidden; background: var(--tile); }
+    
+    
+    .celeb-item img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; transition: transform 0.5s ease; }
+    .celeb-item:hover img { transform: scale(1.02); }
+    .celeb-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(42,31,26,0.88) 0%, transparent 50%); display: flex; flex-direction: column; justify-content: flex-end; padding: 18px 16px; opacity: 0; transition: opacity 0.3s; }
+    .celeb-item:hover .celeb-overlay { opacity: 1; }
+    .celeb-name { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 300; font-style: italic; color: var(--cream); line-height: 1.2; }
+    .celeb-role { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose-lt); margin-top: 3px; }
+
+    /* CREDITS */
+    .credits-section { padding: 80px 48px; background: var(--dark); }
+    .credits-section .section-title { color: var(--cream); }
+    .credits-section .section-title em { color: var(--rose-lt); }
+    .credits-grid { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 48px; border-top: 1px solid rgba(176,128,112,0.2); }
+    .credit-item { padding: 24px 20px 24px 0; border-bottom: 1px solid rgba(176,128,112,0.12); border-right: 1px solid rgba(176,128,112,0.12); }
+    .credit-item:nth-child(4n) { border-right: none; }
+    .credit-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; font-style: italic; color: var(--cream); margin-bottom: 5px; line-height: 1.2; }
+    .credit-role { font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--rose); }
+
+    /* ABOUT */
+    .about-section { padding: 80px 48px; display: grid; grid-template-columns: 200px 1fr; gap: 80px; border-bottom: 1px solid var(--border); }
+    .about-label { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--rose); padding-top: 8px; }
+    .about-text p { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; line-height: 1.65; color: var(--dark); margin-bottom: 16px; max-width: 640px; }
+    .about-text p:last-child { margin-bottom: 0; }
+
+    /* CONTACT */
+    .contact-section { padding: 80px 48px 60px; display: flex; justify-content: space-between; align-items: flex-end; }
+    .contact-heading { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px, 8vw, 100px); font-weight: 300; line-height: 0.88; letter-spacing: -0.02em; margin-bottom: 36px; }
+    .contact-heading em { font-style: italic; color: var(--rose); }
+    .contact-cta { display: inline-block; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cream); background: var(--dark); text-decoration: none; padding: 16px 40px; border-radius: 40px; transition: background 0.2s; }
+    .contact-cta:hover { background: var(--rose); }
+    .contact-links { display: flex; flex-direction: column; gap: 14px; align-items: flex-end; padding-bottom: 6px; }
+    .contact-links a { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose); text-decoration: none; transition: color 0.2s; }
+    .contact-links a:hover { color: var(--dark); }
+
+    footer { padding: 24px 48px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; }
+    footer span { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--border); }
+
+    /* RESPONSIVE */
+
+
+    @media (max-width: 900px) {
+      .work-grid { grid-template-columns: repeat(2, 1fr); }
+      .grid-item.wide { grid-column: span 2; }
+      .celeb-grid { grid-template-columns: repeat(2, 1fr); }
+      .celeb-item.wide { grid-column: span 2; }
+      .credits-grid { grid-template-columns: repeat(2, 1fr); }
+      .credit-item:nth-child(4n) { border-right: 1px solid rgba(176,128,112,0.12); }
+      .credit-item:nth-child(2n) { border-right: none; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 18px 20px; } .nav-links { display: none; }
+      .hero { padding: 100px 20px 36px; } .hero-deco { font-size: 80vw; } .hero-stats { gap: 24px; }
+      .work-section, .celeb-section, .credits-section, .about-section, .contact-section { padding-left: 20px; padding-right: 20px; }
+      .work-grid, .celeb-grid { grid-template-columns: 1fr 1fr; gap: 3px; }
+      .grid-item.wide, .celeb-item.wide { grid-column: span 2; }
+      .about-section { grid-template-columns: 1fr; gap: 20px; }
+      .contact-section { flex-direction: column; align-items: flex-start; gap: 40px; }
+      .contact-links { align-items: flex-start; }
+      footer { padding: 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } * { transition: none !important; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Simran Bhatia</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#celebrity">Celebrity</a></li>
+    <li><a href="#credits">Credits</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-banner">
+    <iframe
+      src="https://www.youtube.com/embed/vfhPWwSdFBU?autoplay=1&mute=1&loop=1&playlist=vfhPWwSdFBU&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+      frameborder="0"
+      allow="autoplay; fullscreen"
+      allowfullscreen
+      style="position:absolute;top:50%;left:50%;width:177.77vh;min-width:100%;height:56.25vw;min-height:100%;transform:translate(-50%,-50%);pointer-events:none;"
+    ></iframe>
+    <div class="hero-banner-overlay"></div>
+  </div>
+  <div class="hero-profile">
+    <div class="hero-avatar-row">
+      <div class="hero-avatar">
+        <img src="images/simran_profile.jpg" alt="Simran Bhatia" style="width:100%;height:100%;object-fit:cover;object-position:center top;" />
+      </div>
+      <div class="hero-nav-links">
+        <a href="#work">Work</a>
+        <a href="#celebrity">Celebrity</a>
+        <a href="#press">Press</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <h1 class="hero-name">Simran <em>Bhatia</em></h1>
+    <p class="hero-role">Costume Stylist &amp; Designer · Mumbai</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-num">30+</span>
+        <span class="hero-meta-label">Projects</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-num">A-list</span>
+        <span class="hero-meta-label">Clients</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-num">6+</span>
+        <span class="hero-meta-label">Years</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-num">2019</span>
+        <span class="hero-meta-label">Est.</span>
+      </div>
+    </div>
+    <div class="hero-divider"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="m-name">Ranbir Kapoor</span><span class="m-dot"> · </span>
+    <span class="m-name">Rajkummar Rao</span><span class="m-dot"> · </span>
+    <span class="m-name">KL Rahul</span><span class="m-dot"> · </span>
+    <span class="m-name">Athiya Shetty</span><span class="m-dot"> · </span>
+    <span class="m-name">Vedang Raina</span><span class="m-dot"> · </span>
+    <span class="m-name">Ahaan Shetty</span><span class="m-dot"> · </span>
+    <span class="m-name">Tiger Shroff</span><span class="m-dot"> · </span>
+    <span class="m-name">Arjun Kapoor</span><span class="m-dot"> · </span>
+    <span class="m-name">Suniel Shetty</span><span class="m-dot"> · </span>
+    <span class="m-name">Sara Ali Khan</span><span class="m-dot"> · </span>
+    <span class="m-name">Prateik Babbar</span><span class="m-dot"> · </span>
+    <span class="m-name">Anupam Mittal</span><span class="m-dot"> · </span>
+    <span class="m-name">Brahmastra</span><span class="m-dot"> · </span>
+    <span class="m-name">Dharma Productions</span><span class="m-dot"> · </span>
+    <span class="m-name">Netflix India</span><span class="m-dot"> · </span>
+    <span class="m-name">Ranbir Kapoor</span><span class="m-dot"> · </span>
+    <span class="m-name">Rajkummar Rao</span><span class="m-dot"> · </span>
+    <span class="m-name">KL Rahul</span><span class="m-dot"> · </span>
+    <span class="m-name">Athiya Shetty</span><span class="m-dot"> · </span>
+    <span class="m-name">Vedang Raina</span><span class="m-dot"> · </span>
+    <span class="m-name">Tiger Shroff</span><span class="m-dot"> · </span>
+    <span class="m-name">Brahmastra</span><span class="m-dot"> · </span>
+    <span class="m-name">Netflix India</span><span class="m-dot"> · </span>
+  </div>
+</div>
+
+<!-- WORK -->
+<section class="work-section" id="work">
+  <div class="section-header">
+    <h2 class="section-title">Film, Series <em>&amp; Campaigns</em></h2>
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="filterWork(this,'all')">All</button>
+      <button class="filter-btn" onclick="filterWork(this,'film')">Film &amp; Series</button>
+      <button class="filter-btn" onclick="filterWork(this,'ads')">Campaigns</button>
+      <button class="filter-btn" onclick="filterWork(this,'music')">Music Videos</button>
+    </div>
+  </div>
+  <div class="work-grid" id="work-grid">
+
+    <a class="grid-item wide" data-cat="film" href="https://www.youtube.com/watch?v=BUjXzrgntcY" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/BUjXzrgntcY/hqdefault.jpg" alt="Brahmastra" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+      <div class="tile-fallback"><p class="fallback-cat">Film · 2022</p><p class="fallback-label">Brahmastra</p></div>
+      <div class="play-icon">▶</div>
+      <div class="grid-overlay"><p class="overlay-cat">Film · 2022</p><p class="overlay-title">Brahmastra: Part One – Shiva</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="film" href="https://www.youtube.com/watch?v=bXTsJKcx_fc" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/bXTsJKcx_fc/hqdefault.jpg" alt="Nadaaaniyan" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Film · 2025</p><p class="fallback-label">Nadaaaniyan</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Film · 2025</p><p class="ov-title">Nadaaaniyan</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="ads" href="https://www.youtube.com/watch?v=_g7NCphQtwY" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/_g7NCphQtwY/hqdefault.jpg" alt="Rohit Saraf Digitek 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+      <div class="tile-fallback"><p class="fallback-cat">Campaign</p><p class="fallback-label">Rohit Saraf for Digitek</p></div>
+      <div class="play-icon">▶</div>
+      <div class="grid-overlay"><p class="overlay-cat">Campaign</p><p class="overlay-title">Rohit Saraf for Digitek</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="film" href="https://www.youtube.com/watch?v=tAXew1iKCnw" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/tAXew1iKCnw/hqdefault.jpg" alt="Showtime" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Web Series · 2024</p><p class="fallback-label">Showtime</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Web Series · 2024</p><p class="ov-title">Showtime</p></div>
+    </a>
+
+
+    <a class="grid-item" data-cat="ads" href="https://www.youtube.com/watch?v=QWbOcbAgl5o" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/QWbOcbAgl5o/hqdefault.jpg" alt="Ranbir Flipkart" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Campaign</p><p class="fallback-label">Ranbir Kapoor for Flipkart</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Campaign</p><p class="ov-title">Ranbir Kapoor for Flipkart</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="ads" href="https://www.youtube.com/watch?v=7M4m-D8k8XA" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/7M4m-D8k8XA/hqdefault.jpg" alt="Ranbir Expo 2020" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Campaign</p><p class="fallback-label">Ranbir Kapoor for Expo 2020</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Campaign</p><p class="ov-title">Ranbir Kapoor for Expo 2020</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="ads" href="https://www.youtube.com/watch?v=vfhPWwSdFBU" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/vfhPWwSdFBU/hqdefault.jpg" alt="The Leela Palace" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Campaign</p><p class="fallback-label">The Leela Palace</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Campaign</p><p class="ov-title">The Leela Palace</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="ads" href="https://www.youtube.com/watch?v=5XWJYN_JL5Y" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/5XWJYN_JL5Y/hqdefault.jpg" alt="KL Rahul Metaman" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Campaign</p><p class="fallback-label">KL Rahul for Metaman</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Campaign</p><p class="ov-title">KL Rahul for Metaman</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="ads" href="https://www.youtube.com/watch?v=26BCPZwHGNI" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/26BCPZwHGNI/hqdefault.jpg" alt="KL Rahul Police Watch" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Campaign</p><p class="fallback-label">KL Rahul for Police Watch</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Campaign</p><p class="ov-title">KL Rahul for Police Watch</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="ads" href="https://www.youtube.com/watch?v=5rNPD3M0L00" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/5rNPD3M0L00/hqdefault.jpg" alt="Abhishek Sharma" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Campaign</p><p class="fallback-label">Abhishek Sharma</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Campaign</p><p class="ov-title">Abhishek Sharma</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="ads" href="https://www.youtube.com/watch?v=G-q6iNWvUuY" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/G-q6iNWvUuY/hqdefault.jpg" alt="Vedang Crocs" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Campaign</p><p class="fallback-label">Vedang Raina for Crocs</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Campaign</p><p class="ov-title">Vedang Raina for Crocs</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="ads" href="https://www.youtube.com/watch?v=iixQ1_IQ8vk" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/iixQ1_IQ8vk/hqdefault.jpg" alt="Madhuri Muthoot" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Campaign</p><p class="fallback-label">Madhuri Dixit for Muthoot Finance</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Campaign</p><p class="ov-title">Madhuri Dixit for Muthoot Finance</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="ads" href="https://www.youtube.com/watch?v=WQEZcNZ8iAM" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/WQEZcNZ8iAM/hqdefault.jpg" alt="Madhuri Jaipur Kurtis" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Campaign</p><p class="fallback-label">Madhuri Dixit for Jaipur Kurtis</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Campaign</p><p class="ov-title">Madhuri Dixit for Jaipur Kurtis</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="ads" href="https://www.youtube.com/watch?v=MVpdGg32IPg" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/MVpdGg32IPg/hqdefault.jpg" alt="Diataal" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Campaign · 2025</p><p class="fallback-label">Ranbir Kapoor for Diataal</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Campaign · 2025</p><p class="ov-title">Ranbir Kapoor for Diataal</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="ads" href="https://www.youtube.com/watch?v=o8hvllEEZ8Q" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/o8hvllEEZ8Q/hqdefault.jpg" alt="Hero Maestro" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Campaign · 2025</p><p class="fallback-label">Ranbir Kapoor for Hero Maestro</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Campaign · 2025</p><p class="ov-title">Ranbir Kapoor for Hero Maestro Edge</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="ads" href="https://www.youtube.com/watch?v=SRH6DdTjegc" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/SRH6DdTjegc/hqdefault.jpg" alt="Kareena Netmeds" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Campaign · 2025</p><p class="fallback-label">Kareena Kapoor Khan for Netmeds</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Campaign · 2025</p><p class="ov-title">Kareena Kapoor Khan for Netmeds</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="ads" href="https://www.youtube.com/watch?v=UUOpes6MV9s" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/UUOpes6MV9s/hqdefault.jpg" alt="MS Dhoni Jio" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Campaign · 2025</p><p class="fallback-label">MS Dhoni for Jio</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Campaign · 2025</p><p class="ov-title">MS Dhoni for Jio Phone Next</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="ads" href="https://www.youtube.com/watch?v=9fj7atuAWxs" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/9fj7atuAWxs/hqdefault.jpg" alt="Sara TBZ" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Campaign · 2025</p><p class="fallback-label">Sara Ali Khan for TBZ</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Campaign · 2025</p><p class="ov-title">Sara Ali Khan for TBZ Jewellery</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="ads" href="https://www.youtube.com/watch?v=gJbzoDXrCXs" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/gJbzoDXrCXs/hqdefault.jpg" alt="Flipkart Fashion" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Campaign · 2025</p><p class="fallback-label">Flipkart Fashion</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Campaign · 2025</p><p class="ov-title">Flipkart Fashion</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="ads" href="https://www.youtube.com/watch?v=yUgcjD1KWBc" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/yUgcjD1KWBc/hqdefault.jpg" alt="Rungta Steel" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Campaign · 2025</p><p class="fallback-label">Rungta Steel</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Campaign · 2025</p><p class="ov-title">Rungta Steel</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="ads" href="https://www.youtube.com/watch?v=NhJjGRYhmcA" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/NhJjGRYhmcA/hqdefault.jpg" alt="Puro Health" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Campaign · 2025</p><p class="fallback-label">Puro Health Salt</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Campaign · 2025</p><p class="ov-title">Puro Health Salt</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="ads" href="https://www.youtube.com/watch?v=FJKysfDVJmM" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/FJKysfDVJmM/hqdefault.jpg" alt="Raymond Winter" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Campaign · 2025</p><p class="fallback-label">Raymond Winter Campaign</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Campaign · 2025</p><p class="ov-title">Raymond Winter Campaign</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="music" href="https://www.youtube.com/watch?v=V-aWMKcuJSo" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/V-aWMKcuJSo/hqdefault.jpg" alt="Quick Style for Grazia" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Music Video</p><p class="fallback-label">Sheher Ki Ladki</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Music Video</p><p class="ov-title">Sheher Ki Ladki</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="ads" href="https://www.youtube.com/watch?v=sP2L7Q4jRaA" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/sP2L7Q4jRaA/hqdefault.jpg" alt="Quick Style for Grazia" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><div class="tile-fallback"><p class="fallback-cat">Campaign</p><p class="fallback-label">Quick Style for Grazia</p></div>
+      <div class="play-icon">▶</div><div class="g-overlay"><p class="ov-cat">Campaign</p><p class="ov-title">Quick Style for Grazia</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="music" href="https://www.youtube.com/watch?v=pg2tsJErYH4" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/pg2tsJErYH4/hqdefault.jpg" alt="Haath Varthi" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+      <div class="tile-fallback"><p class="fallback-cat">Music Video · 2025</p><p class="fallback-label">Haath Varthi — MC Stan × KSHMR</p></div>
+      <div class="play-icon">▶</div>
+      <div class="grid-overlay"><p class="overlay-cat">Music Video · 2025</p><p class="overlay-title">Haath Varthi — MC Stan × KSHMR</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="film" href="https://www.youtube.com/watch?v=JzGGF4JPFIQ" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/JzGGF4JPFIQ/hqdefault.jpg" alt="Tu Jhoothi Main Makkaar" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+      <div class="tile-fallback"><p class="fallback-cat">Film · 2023</p><p class="fallback-label">Tu Jhoothi Main Makkaar</p></div>
+      <div class="play-icon">▶</div>
+      <div class="grid-overlay"><p class="overlay-cat">Film · 2023</p><p class="overlay-title">Tu Jhoothi Main Makkaar</p></div>
+    </a>
+
+    
+
+    
+
+    <a class="grid-item" data-cat="film" href="https://www.youtube.com/watch?v=2EnMuY1g664" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/2EnMuY1g664/hqdefault.jpg" alt="The Fame Game" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+      <div class="tile-fallback"><p class="fallback-cat">Web Series · 2022</p><p class="fallback-label">The Fame Game</p></div>
+      <div class="play-icon">▶</div>
+      <div class="grid-overlay"><p class="overlay-cat">Web Series · 2022</p><p class="overlay-title">The Fame Game</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="music" href="https://www.youtube.com/watch?v=WGdoaRVOm8o" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/WGdoaRVOm8o/hqdefault.jpg" alt="Chhalaang" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+      <div class="tile-fallback"><p class="fallback-cat">Music Video · 2020</p><p class="fallback-label">Chhalaang: Care Ni Karda</p></div>
+      <div class="play-icon">▶</div>
+      <div class="grid-overlay"><p class="overlay-cat">Music Video · 2020</p><p class="overlay-title">Chhalaang: Care Ni Karda</p></div>
+    </a>
+
+    
+
+    <a class="grid-item" data-cat="music" href="https://www.youtube.com/watch?v=8mYeTuzBQr4" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/8mYeTuzBQr4/hqdefault.jpg" alt="Aaj Sajeya" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+      <div class="tile-fallback"><p class="fallback-cat">Music Video · 2021</p><p class="fallback-label">Aaj Sajeya</p></div>
+      <div class="play-icon">▶</div>
+      <div class="grid-overlay"><p class="overlay-cat">Music Video · 2021</p><p class="overlay-title">Aaj Sajeya</p></div>
+    </a>
+
+    <a class="grid-item" data-cat="ads" href="https://www.youtube.com/watch?v=5ZE6qSqyKb4" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/5ZE6qSqyKb4/hqdefault.jpg" alt="Rohit Saraf Digitek" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+      <div class="tile-fallback"><p class="fallback-cat">Campaign</p><p class="fallback-label">Rohit Saraf for Digitek</p></div>
+      <div class="play-icon">▶</div>
+      <div class="grid-overlay"><p class="overlay-cat">Campaign</p><p class="overlay-title">Rohit Saraf for Digitek</p></div>
+    </a>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <a class="grid-item" data-cat="film" href="https://www.youtube.com/watch?v=DZ9lpup4VZ0" target="_blank" rel="noopener">
+      <img src="https://img.youtube.com/vi/DZ9lpup4VZ0/hqdefault.jpg" alt="Dragon" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+      <div class="tile-fallback"><p class="fallback-cat">Film · 2027</p><p class="fallback-label">Dragon</p></div>
+      <div class="play-icon">▶</div>
+      <div class="grid-overlay"><p class="overlay-cat">Film · Coming 2027</p><p class="overlay-title">Dragon</p></div>
+    </a>
+
+  </div>
+</section>
+
+<!-- CELEBRITY STYLING -->
+<section class="celeb-section" id="celebrity">
+  <div class="section-header">
+    <h2 class="section-title">Celebrity <em>Styling</em></h2>
+  </div>
+  <div class="celeb-grid">
+
+    <div class="celeb-item wide">
+      <img src="images/kl_athiya3.jpg" alt="KL Rahul & Athiya Shetty" />
+      <div class="celeb-overlay"><p class="celeb-name">KL Rahul &amp; Athiya Shetty</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/athiya_saree_pink.jpg" alt="Athiya Shetty" />
+      <div class="celeb-overlay"><p class="celeb-name">Athiya Shetty</p><p class="celeb-role">Editorial</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/athiya_saree_yellow.jpg" alt="Athiya Shetty" />
+      <div class="celeb-overlay"><p class="celeb-name">Athiya Shetty</p><p class="celeb-role">Editorial</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/rajkummar1.jpg" alt="Rajkummar Rao" />
+      <div class="celeb-overlay"><p class="celeb-name">Rajkummar Rao</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/rajkummar2.jpg" alt="Rajkummar Rao" />
+      <div class="celeb-overlay"><p class="celeb-name">Rajkummar Rao</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/rajkummar3.jpg" alt="Rajkummar Rao" />
+      <div class="celeb-overlay"><p class="celeb-name">Rajkummar Rao</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item wide">
+      <img src="images/kl_athiya4.jpg" alt="KL Rahul & Athiya Shetty" />
+      <div class="celeb-overlay"><p class="celeb-name">KL Rahul &amp; Athiya Shetty</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/vedang1.jpg" alt="Vedang Raina" />
+      <div class="celeb-overlay"><p class="celeb-name">Vedang Raina</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/vedang3.jpg" alt="Vedang Raina" />
+      <div class="celeb-overlay"><p class="celeb-name">Vedang Raina</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/ranbir1.jpg" alt="Ranbir Kapoor" />
+      <div class="celeb-overlay"><p class="celeb-name">Ranbir Kapoor</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/ranbir2.jpg" alt="Ranbir Kapoor" />
+      <div class="celeb-overlay"><p class="celeb-name">Ranbir Kapoor</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/ahaan1.jpg" alt="Ahaan Shetty" />
+      <div class="celeb-overlay"><p class="celeb-name">Ahaan Shetty</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/ahaan2.jpg" alt="Ahaan Shetty" />
+      <div class="celeb-overlay"><p class="celeb-name">Ahaan Shetty</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/suniel1.jpg" alt="Suniel Shetty" />
+      <div class="celeb-overlay"><p class="celeb-name">Suniel Shetty</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/suniel2.png" alt="Suniel Shetty" />
+      <div class="celeb-overlay"><p class="celeb-name">Suniel Shetty</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/arjun1.jpg" alt="Arjun Kapoor" />
+      <div class="celeb-overlay"><p class="celeb-name">Arjun Kapoor</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/tiger1.jpg" alt="Tiger Shroff" />
+      <div class="celeb-overlay"><p class="celeb-name">Tiger Shroff</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/athiya_armani.jpg" alt="Athiya Shetty" />
+      <div class="celeb-overlay"><p class="celeb-name">Athiya Shetty</p><p class="celeb-role">Armani Beauty</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/sara_bazaar.jpg" alt="Sara Ali Khan" />
+      <div class="celeb-overlay"><p class="celeb-name">Sara Ali Khan</p><p class="celeb-role">Harper's Bazaar</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/prateik1.png" alt="Prateik Babbar" />
+      <div class="celeb-overlay"><p class="celeb-name">Prateik Babbar</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/anupam1.png" alt="Anupam Mittal" />
+      <div class="celeb-overlay"><p class="celeb-name">Anupam Mittal</p><p class="celeb-role">Shark Tank India</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/quickstyle_grazia.jpg" alt="Quick Style" />
+      <div class="celeb-overlay"><p class="celeb-name">Quick Style</p><p class="celeb-role">Grazia Cover</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/kl1.jpg" alt="KL Rahul" />
+      <div class="celeb-overlay"><p class="celeb-name">KL Rahul</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/kl2.jpg" alt="KL Rahul" />
+      <div class="celeb-overlay"><p class="celeb-name">KL Rahul</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/kl3.jpg" alt="KL Rahul" />
+      <div class="celeb-overlay"><p class="celeb-name">KL Rahul</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/kl_athiya1.jpg" alt="KL Rahul & Athiya Shetty" />
+      <div class="celeb-overlay"><p class="celeb-name">KL Rahul &amp; Athiya Shetty</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/kl_athiya2.jpg" alt="KL Rahul & Athiya Shetty" />
+      <div class="celeb-overlay"><p class="celeb-name">KL Rahul &amp; Athiya Shetty</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/athiya2.jpg" alt="Athiya Shetty" />
+      <div class="celeb-overlay"><p class="celeb-name">Athiya Shetty</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/athiya3.jpg" alt="Athiya Shetty" />
+      <div class="celeb-overlay"><p class="celeb-name">Athiya Shetty</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/rajkummar4.jpg" alt="Rajkummar Rao" />
+      <div class="celeb-overlay"><p class="celeb-name">Rajkummar Rao</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/rajkummar5.jpg" alt="Rajkummar Rao" />
+      <div class="celeb-overlay"><p class="celeb-name">Rajkummar Rao</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/rajkummar6.jpg" alt="Rajkummar Rao" />
+      <div class="celeb-overlay"><p class="celeb-name">Rajkummar Rao</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/rajkummar7.jpg" alt="Rajkummar Rao" />
+      <div class="celeb-overlay"><p class="celeb-name">Rajkummar Rao</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/rajkummar8.jpg" alt="Rajkummar Rao" />
+      <div class="celeb-overlay"><p class="celeb-name">Rajkummar Rao</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/rajkummar9.jpg" alt="Rajkummar Rao" />
+      <div class="celeb-overlay"><p class="celeb-name">Rajkummar Rao</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/rajkummar10.jpg" alt="Rajkummar Rao" />
+      <div class="celeb-overlay"><p class="celeb-name">Rajkummar Rao</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/rajkummar11.jpg" alt="Rajkummar Rao" />
+      <div class="celeb-overlay"><p class="celeb-name">Rajkummar Rao</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/rajkummar12.jpg" alt="Rajkummar Rao" />
+      <div class="celeb-overlay"><p class="celeb-name">Rajkummar Rao</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/vedang2.jpg" alt="Vedang Raina" />
+      <div class="celeb-overlay"><p class="celeb-name">Vedang Raina</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/vedang4.jpg" alt="Vedang Raina" />
+      <div class="celeb-overlay"><p class="celeb-name">Vedang Raina</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/vedang5.jpg" alt="Vedang Raina" />
+      <div class="celeb-overlay"><p class="celeb-name">Vedang Raina</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/vedang6.jpg" alt="Vedang Raina" />
+      <div class="celeb-overlay"><p class="celeb-name">Vedang Raina</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/vedang7.jpg" alt="Vedang Raina" />
+      <div class="celeb-overlay"><p class="celeb-name">Vedang Raina</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/vedang8.jpg" alt="Vedang Raina" />
+      <div class="celeb-overlay"><p class="celeb-name">Vedang Raina</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/vedang9.jpg" alt="Vedang Raina" />
+      <div class="celeb-overlay"><p class="celeb-name">Vedang Raina</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/vedang10.jpg" alt="Vedang Raina" />
+      <div class="celeb-overlay"><p class="celeb-name">Vedang Raina</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/vedang11.jpg" alt="Vedang Raina" />
+      <div class="celeb-overlay"><p class="celeb-name">Vedang Raina</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/vedang12.jpg" alt="Vedang Raina" />
+      <div class="celeb-overlay"><p class="celeb-name">Vedang Raina</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/vedang13.jpg" alt="Vedang Raina" />
+      <div class="celeb-overlay"><p class="celeb-name">Vedang Raina</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/vedang14.jpg" alt="Vedang Raina" />
+      <div class="celeb-overlay"><p class="celeb-name">Vedang Raina</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/vedang_leather.jpg" alt="Vedang Raina" />
+      <div class="celeb-overlay"><p class="celeb-name">Vedang Raina</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/vedang_award.jpg" alt="Vedang Raina" />
+      <div class="celeb-overlay"><p class="celeb-name">Vedang Raina</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/vedang_filmfare.jpg" alt="Vedang Raina" />
+      <div class="celeb-overlay"><p class="celeb-name">Vedang Raina</p><p class="celeb-role">Filmfare Cover</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/vedang_ck.jpg" alt="Vedang Raina" />
+      <div class="celeb-overlay"><p class="celeb-name">Vedang Raina</p><p class="celeb-role">Calvin Klein</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/madhuri_yellow.jpg" alt="Madhuri Dixit" />
+      <div class="celeb-overlay"><p class="celeb-name">Madhuri Dixit</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/ahaan3.jpg" alt="Ahaan Shetty" />
+      <div class="celeb-overlay"><p class="celeb-name">Ahaan Shetty</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/ahaan4.jpg" alt="Ahaan Shetty" />
+      <div class="celeb-overlay"><p class="celeb-name">Ahaan Shetty</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/ahaan5.jpg" alt="Ahaan Shetty" />
+      <div class="celeb-overlay"><p class="celeb-name">Ahaan Shetty</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/ahaan6.jpg" alt="Ahaan Shetty" />
+      <div class="celeb-overlay"><p class="celeb-name">Ahaan Shetty</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/ahaan7.jpg" alt="Ahaan Shetty" />
+      <div class="celeb-overlay"><p class="celeb-name">Ahaan Shetty</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/ahaan8.jpg" alt="Ahaan Shetty" />
+      <div class="celeb-overlay"><p class="celeb-name">Ahaan Shetty</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/suniel3.png" alt="Suniel Shetty" />
+      <div class="celeb-overlay"><p class="celeb-name">Suniel Shetty</p><p class="celeb-role">Celebrity Styling</p></div>
+    </div>
+
+    <div class="celeb-item">
+      <img src="images/anupam2.png" alt="Anupam Mittal" />
+      <div class="celeb-overlay"><p class="celeb-name">Anupam Mittal</p><p class="celeb-role">Shark Tank India</p></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CREDITS -->
+<section class="credits-section" id="credits">
+  <h2 class="section-title">Selected <em>Credits</em></h2>
+  <div class="credits-grid">
+    <div class="credit-item"><p class="credit-name">Brahmastra</p><p class="credit-role">Film · 2022</p></div>
+    <div class="credit-item"><p class="credit-name">Tu Jhoothi Main Makkaar</p><p class="credit-role">Film · 2023</p></div>
+    <div class="credit-item"><p class="credit-name">Showtime</p><p class="credit-role">Web Series · 2024</p></div>
+    <div class="credit-item"><p class="credit-name">Nadaaaniyan</p><p class="credit-role">Film · 2025</p></div>
+    <div class="credit-item"><p class="credit-name">The Fame Game</p><p class="credit-role">Web Series · Netflix · 2022</p></div>
+    <div class="credit-item"><p class="credit-name">Dragon</p><p class="credit-role">Film · Coming 2027</p></div>
+    <div class="credit-item"><p class="credit-name">Ranbir Kapoor</p><p class="credit-role">Diataal · Hero Maestro Edge</p></div>
+    <div class="credit-item"><p class="credit-name">Kareena Kapoor Khan</p><p class="credit-role">Netmeds · 2025</p></div>
+    <div class="credit-item"><p class="credit-name">MS Dhoni</p><p class="credit-role">Jio Phone Next · 2025</p></div>
+    <div class="credit-item"><p class="credit-name">Sara Ali Khan</p><p class="credit-role">TBZ Jewellery · Harper's Bazaar</p></div>
+    <div class="credit-item"><p class="credit-name">Rohit Saraf</p><p class="credit-role">Digitek · Campaign</p></div>
+    <div class="credit-item"><p class="credit-name">MC Stan × KSHMR</p><p class="credit-role">Haath Varthi · 2025</p></div>
+    <div class="credit-item"><p class="credit-name">Rajkummar Rao</p><p class="credit-role">Celebrity Styling</p></div>
+    <div class="credit-item"><p class="credit-name">KL Rahul &amp; Athiya Shetty</p><p class="credit-role">Celebrity Styling</p></div>
+    <div class="credit-item"><p class="credit-name">Madhuri Dixit</p><p class="credit-role">Celebrity Styling</p></div>
+    <div class="credit-item"><p class="credit-name">Vedang Raina</p><p class="credit-role">Celebrity Styling</p></div>
+    <div class="credit-item"><p class="credit-name">Ahaan Shetty</p><p class="credit-role">Celebrity Styling</p></div>
+    <div class="credit-item"><p class="credit-name">Tiger Shroff</p><p class="credit-role">Celebrity Styling</p></div>
+    <div class="credit-item"><p class="credit-name">Arjun Kapoor</p><p class="credit-role">Celebrity Styling</p></div>
+    <div class="credit-item"><p class="credit-name">Suniel Shetty</p><p class="credit-role">Celebrity Styling</p></div>
+    <div class="credit-item"><p class="credit-name">Prateik Babbar</p><p class="credit-role">Celebrity Styling</p></div>
+    <div class="credit-item"><p class="credit-name">Anupam Mittal</p><p class="credit-role">Shark Tank India</p></div>
+    <div class="credit-item"><p class="credit-name">Quick Style</p><p class="credit-role">Grazia Cover · 2025</p></div>
+    <div class="credit-item"><p class="credit-name">Flipkart · Rungta · Raymond</p><p class="credit-role">National Campaigns · 2025</p></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <p class="about-label">About</p>
+  <div class="about-text">
+    <p>Mumbai-based costume stylist and designer building wardrobes that tell stories — across blockbuster films, streaming originals, national campaigns, and music videos.</p>
+    <p>Credits span Brahmastra, Tu Jhoothi Main Makkaar, Showtime, and Nadaaaniyan, alongside campaigns and celebrity styling for Ranbir Kapoor, KL Rahul, Athiya Shetty, Rajkummar Rao, Vedang Raina, Tiger Shroff, and many more.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div>
+    <h2 class="contact-heading">Work<br/><em>Together</em></h2>
+    <a class="contact-cta" href="mailto:your@email.com">Get in touch</a>
+  </div>
+  <div class="contact-links">
+    <a href="https://www.instagram.com/simranbhatia28" target="_blank" rel="noopener">Instagram ↗</a>
+    <a href="https://simranbhatia744adff.myportfolio.com" target="_blank" rel="noopener">Portfolio ↗</a>
+    <a href="https://wa.me/919920861611" target="_blank" rel="noopener">WhatsApp ↗</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Simran Bhatia</span>
+  <span>Mumbai, India</span>
+</footer>
+
+<script>
+  function filterWork(btn, cat) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.grid-item').forEach(item => {
+      const show = cat === 'all' || item.dataset.cat === cat;
+      if (show) {
+        item.style.display = 'block';
+        if (item.classList.contains('wide')) item.style.gridColumn = 'span 2';
+        else item.style.gridColumn = '';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
+
+  document.querySelectorAll('.grid-item img').forEach(img => {
+    img.addEventListener('error', function() {
+      this.style.display = 'none';
+      const fb = this.parentElement.querySelector('.tile-fallback');
+      if (fb) fb.style.display = 'flex';
+    });
+  });
+</script>
+</body>
+</html>
